@@ -1,4 +1,7 @@
 import { Client } from "discord.js";
+import { config } from "dotenv";
+
+config()
 
 const bot = new Client({
   intents: [
@@ -15,7 +18,11 @@ const bot = new Client({
   ],
 });
 
-bot.on("messageCreate",(msg) => {
+bot.on("ready",(bot) => {
+    console.log("afc-bot is ready")
+})
+
+bot.on('messageCreate',(msg)=> {
     if(msg.content === "ping") msg.reply("pong")
 })
 
