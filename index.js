@@ -22,8 +22,5 @@ bot.on("ready",(bot) => {
     console.log("afc-bot is ready")
 })
 
-bot.on('messageCreate',(msg)=> {
-    if(msg.content === "ping") msg.reply("pong")
-})
-
 bot.login(process.env.BOT_TOKEN)
+
