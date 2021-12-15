@@ -1,4 +1,4 @@
-import { Client } from "discord.js";
+import { BitField, Client, ReactionEmoji } from "discord.js";
 import { config } from "dotenv";
 
 config()
@@ -19,8 +19,15 @@ const bot = new Client({
 });
 
 bot.on("ready",(bot) => {
-    console.log("afc-bot is ready")
+    console.log("Bot is ready")
 })
 
 bot.login(process.env.BOT_TOKEN)
+
+bot.on('messageCreate', (message) => {
+    if (message.content === "ping") {
+      message.react("<:smiley:920785800701038593>")
+      message.reply("pong mon bg")
+    }
+})
 
