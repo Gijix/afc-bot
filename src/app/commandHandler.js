@@ -43,8 +43,8 @@ export default class Command {
   static commandList = [];
 
   static async load() {
-    const routes = await loadFile("commands");
-    routes.forEach((command) => command.#add());
+    const commands = await loadFile("commands");
+    this.commandList = [...commands]
   }
 
   /**
@@ -64,9 +64,5 @@ export default class Command {
    */
   constructor(options) {
     this.options = options;
-  }
-
-  #add() {
-    Command.commandList.push(this);
   }
 }
