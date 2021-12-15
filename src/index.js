@@ -2,8 +2,6 @@ import { Client } from "discord.js";
 import { config } from "dotenv";
 import Commands from './app/commandHandler.js'
 
-config()
-
 const bot = new Client({
   intents: [
     "DIRECT_MESSAGES",
@@ -19,6 +17,14 @@ const bot = new Client({
   ],
 });
 
+async function startBOT() {
+  config()
+  await Commands.load()
+  await bot.login(process.env.BOT_TOKEN)
+}
+
+startBOT()
+
 bot.on("ready",async(client) => {
   client.user.setActivity({
     type: "WATCHING",
@@ -27,7 +33,6 @@ bot.on("ready",async(client) => {
   client.user.setPresence({
     status: "online"
   })
-  await Commands.load()
   console.log("afc-bot is ready")  
 })
 
@@ -37,5 +42,4 @@ bot.on("messageCreate", async(message) => {
   Commands.run(message)
 })
 
-bot.login(process.env.BOT_TOKEN)
 
