@@ -52,6 +52,7 @@ export default class Command {
    */
   static async run(message) {
     this.commandList.forEach(async ({options}) => {
+      if(message.author.id !== process.env.BOT_OWNER) return
       if (message.author.bot) return;
       if(!message.content.startsWith(process.env.PREFIX + options.name)) return
       await options.run(message);
