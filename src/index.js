@@ -1,6 +1,6 @@
 import { Client } from "discord.js";
 import { config } from "dotenv";
-import Commands from './app/commandHandler.js'
+import * as app from './app/app.js'
 
 const bot = new Client({
   intents: [
@@ -19,7 +19,7 @@ const bot = new Client({
 
 async function startBOT() {
   config()
-  await Commands.load()
+  await app.Command.load()
   await bot.login(process.env.BOT_TOKEN)
 }
 
@@ -36,10 +36,6 @@ bot.on("ready",async(client) => {
   console.log("afc-bot is ready")  
 })
 
-
-
 bot.on("messageCreate", async(message) => {
-  Commands.run(message)
+  app.Command.run(message)
 })
-
-

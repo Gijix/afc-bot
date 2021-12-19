@@ -4,8 +4,12 @@ import { readdir } from "fs/promises";
 import path from "path";
 
 /**
+ * @typedef normal
+ * @property {string[]} args
+ */
+/**
  * @callback run
- * @param {Message} message
+ * @param {Message & normal} message
  * @return {Promise<void>}
  */
 /**
@@ -36,7 +40,7 @@ async function loadFile(dir) {
   return exportRaws;
 }
 
-export default class Command {
+export class Command {
   /**
    * @type {Command[]}
    */
@@ -48,12 +52,14 @@ export default class Command {
   }
 
   /**
-   * @param {Message} message
+   * @param {Message & normal} message
    */
   static async run(message) {
+    const args = message.content.split(" ").slice(1)
+    message.args = args
+    if(message.author.id !== process.env.BOT_OWNER) return;
+    if (message.author.bot) return;
     this.commandList.forEach(async ({options}) => {
-      if(message.author.id !== process.env.BOT_OWNER) return
-      if (message.author.bot) return;
       if(!message.content.startsWith(process.env.PREFIX + options.name)) return
       await options.run(message);
     });
