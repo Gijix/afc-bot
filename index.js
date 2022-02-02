@@ -1,4 +1,4 @@
-import { BitField, Client, ReactionEmoji } from "discord.js";
+import { Client, Intents } from "discord.js";
 import { config } from "dotenv";
 
 config()
@@ -18,16 +18,32 @@ const bot = new Client({
   ],
 });
 
+const client = new Client({
+	intents: [
+    Intents.FLAGS.GUILDS, 
+    Intents.FLAGS.GUILD_MESSAGES, 
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
+});
+
+// INTERACTIONS
+
 bot.on("ready",(bot) => {
-    console.log("Bot is ready")
+    console.log("Bot is active...")
 })
 
 bot.login(process.env.BOT_TOKEN)
 
 bot.on('messageCreate', (message) => {
-    if (message.content === "ping") {
-      message.react("<:smiley:920785800701038593>")
-      message.reply("pong mon bg")
+    console.log(message.content);
+    if (message.content === "😄" || "🙂" || "🥲") {
+      message.reply(message.content)
     }
 })
+
+
+
+
+
+
+
 
