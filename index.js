@@ -25,6 +25,7 @@ const client = new Client({
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 });
 
+
 // INTERACTIONS
 
 bot.on("ready",(bot) => {
@@ -33,10 +34,21 @@ bot.on("ready",(bot) => {
 
 bot.login(process.env.BOT_TOKEN)
 
+// LE BOT REPOND PAR LE MEME EMOJI
 bot.on('messageCreate', (message) => {
-    console.log(message.content);
-    if (message.content === "😄" || "🙂" || "🥲") {
-      message.reply(message.content)
+  //init variable
+    let msgcon = message.content
+    console.log(msgcon); // log les messages reçus
+
+    
+    //Bloc conditionnel
+    if (/(?=\p{Emoji})(?!\p{Number})/u.test(msgcon)) {
+      if (!message.author.bot) {
+        message.reply(message.content)
+      }
+      if (message.author.bot) {
+        return //car l'auteur du message est un bot
+      }
     }
 })
 
