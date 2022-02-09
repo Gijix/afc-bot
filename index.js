@@ -39,12 +39,22 @@ bot.on('messageCreate', (message) => {
   //init variable
     let msgcon = message.content
     console.log(msgcon); // log les messages reçus
-
+    let emoPat = /(?=\p{Emoji})(?!\p{Number})/u
     
     //Bloc conditionnel
-    if (/(?=\p{Emoji})(?!\p{Number})/u.test(msgcon)) {
+    if (emoPat.test(msgcon)) {
       if (!message.author.bot) {
-        message.reply(message.content)
+        //match permet de vérifier si une chaine donnée existe dans une autre chaine. En gros ça va trouver tout les matchs.
+        let matchs = msgcon.match(emoPat)
+        console.log(matchs);
+        console.log("le test est : " + emoPat.test(matchs));
+        //comme match() renvoi un tableau je veux récupérer les input pour répondre avec le même input
+        // Je vais donc la push dans un array que je pourrais vérifier
+        let myArray = [];
+        myArray.push(matchs)
+        console.log("myArray est : " + myArray);
+
+        message.reply(msgcon)
       }
       if (message.author.bot) {
         return //car l'auteur du message est un bot
