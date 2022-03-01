@@ -36,24 +36,21 @@ bot.login(process.env.BOT_TOKEN)
 
 // LE BOT REPOND PAR LE MEME EMOJI
 bot.on('messageCreate', (message) => {
+  if ( message.author.bot ){
+    return;
+  }
+
   //init variable
     let msgcon = message.content
     console.log(msgcon); // log les messages reçus
     let emoPat = /\p{Emoji_Presentation}/gu
     
     //Bloc conditionnel
-    if (emoPat.test(msgcon)) {
-      if (!message.author.bot) {
-        //match permet de vérifier si une chaine donnée existe dans une autre chaine. En gros ça va trouver tout les matchs.
-        let matchs = msgcon.match(emoPat)
-        console.log(matchs);
-        
-        message.reply(matchs[0])
-        //message.reply(matchs.input)
-      }
-      if (message.author.bot) {
-        return //car l'auteur du message est un bot
-      }
+    if ( emoPat.test(msgcon) ){
+    
+      let matchs = msgcon.match(emoPat)
+      console.log(matchs)
+      message.reply(matchs[0])
     }
 })
 
