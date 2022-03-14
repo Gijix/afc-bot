@@ -26,8 +26,8 @@ const client = new Client({
 });
 
 
-// INTERACTIONS
 
+// INTERACTIONS
 bot.on("ready",(bot) => {
     console.log("Bot is active...")
 })
@@ -36,16 +36,13 @@ bot.login(process.env.BOT_TOKEN)
 
 // LE BOT REPOND PAR LE MEME EMOJI
 bot.on('messageCreate', (message) => {
-  if ( message.author.bot ){
-    return;
-  }
 
-  //init variable
+  if ( message.author.bot ){ return;}
+
     let msgcon = message.content
-    console.log(msgcon); // log les messages reçus
-    let emoPat = /\p{Emoji_Presentation}/gu
+    console.log(msgcon); 
     
-    //Bloc conditionnel
+    let emoPat = /\p{Emoji_Presentation}/gu
     if ( emoPat.test(msgcon) ){
     
       let matchs = msgcon.match(emoPat)
@@ -55,17 +52,11 @@ bot.on('messageCreate', (message) => {
 })
 
 // RENVOIE GIF 
-
-
 bot.on('messageCreate', (message) => {
-
-  // variables contenant ma liste de mot à utiliser pour trigger un meme
 
   let salutations = ["hi", "hey", "hello", "heya", "yo"]
   let risitas = ["issou", "kekw", "kek"]
   let daway = ["the way", "da way", "da we", "da weh", "da wae", " da wey", "de wey", "de way", "de weh"]
-
-  // Reply en foction de la liste
 
   if (salutations.includes(message.content.toLowerCase())) {
     message.reply("https://i.pinimg.com/originals/fd/75/14/fd75149899abe3e57e4c9d3bf4243e9c.gif")
